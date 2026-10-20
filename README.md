@@ -11,7 +11,7 @@ pip install cytolume            # + "cytolume[anndata]" to read .h5ad files
 ```
 
 ## TestPyPI Page
-[Cytolume-TestPyPI-Package](https://test.pypi.org/project/cytolume/)
+[cytolume 0.1.0](https://test.pypi.org/project/cytolume/)
 
 ## Quick start
 
