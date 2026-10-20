@@ -1,0 +1,9 @@
+# Normalise line endings so Windows and Linux clones produce identical diffs.
+* text=auto eol=lf
+
+*.woff2 binary
+*.whl   binary
+*.h5ad  binary
+
+# The bundled viewer is build output; Inter's snapshot hashes cover exact bytes.
+src/cytolume/viewer/** -text
