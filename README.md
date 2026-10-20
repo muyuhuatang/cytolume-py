@@ -130,6 +130,17 @@ python -m build                                              # sdist + wheel in 
 `src/cytolume/viewer/BUILD.json` records which web commit the bundled viewer was
 built from.
 
+## Releasing
+
+Releases are published by [`publish.yml`](.github/workflows/publish.yml) with PyPI
+Trusted Publishing, so no API token is involved.
+
+1. Bump `__version__` in `src/cytolume/__init__.py` and commit.
+2. Rehearse: **Actions → Publish → Run workflow** uploads to TestPyPI.
+   TestPyPI rejects a version it already has, so rehearse each version once.
+3. Release: create a GitHub release with tag `v<version>`. The workflow checks that
+   the tag matches `__version__`, runs the tests, and uploads to PyPI.
+
 ## License
 
 MIT. The bundled viewer includes the Inter font (SIL Open Font License 1.1; see

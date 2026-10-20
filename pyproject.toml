@@ -30,7 +30,10 @@ test = ["pytest>=7"]
 cytolume = "cytolume.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/muyuhuatang/Cytolume"
+Homepage = "https://github.com/muyuhuatang/cytolume-py"
+Source = "https://github.com/muyuhuatang/cytolume-py"
+Issues = "https://github.com/muyuhuatang/cytolume-py/issues"
+Viewer = "https://github.com/muyuhuatang/Cytolume"
 Demo = "https://muyuhuatang.github.io/Cytolume/"
 
 [tool.hatch.version]

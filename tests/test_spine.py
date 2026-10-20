@@ -97,3 +97,13 @@ def test_server_routes(tmp_path):
         script = index.split('src="', 1)[1].split('"', 1)[0]
         with urllib.request.urlopen(srv.url + script.lstrip("/")) as r:
             assert r.headers["Content-Type"].startswith("text/javascript")
+
+
+def test_bundled_viewer_records_no_local_path():
+    import json
+    from pathlib import Path
+
+    viewer = Path(cytolume.__file__).parent / "viewer"
+    assert (viewer / "index.html").exists()
+    info = json.loads((viewer / "BUILD.json").read_text(encoding="utf-8"))
+    assert info["source"].startswith("https://"), info["source"]
