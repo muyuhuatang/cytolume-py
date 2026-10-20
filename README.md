@@ -10,6 +10,9 @@ WebGL2 viewer on top of it, locally or inside Jupyter. It needs only NumPy.
 pip install cytolume            # + "cytolume[anndata]" to read .h5ad files
 ```
 
+## TestPyPI Page
+[Cytolume-TestPyPI-Package](https://test.pypi.org/project/cytolume/)
+
 ## Quick start
 
 ```python
