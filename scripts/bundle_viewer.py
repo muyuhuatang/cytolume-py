@@ -95,7 +95,7 @@ def main() -> int:
         "basePath": "/",
         "excluded": ["spine/", "vendor/hra/"],
     }
-    (DEST / "BUILD.json").write_text(json.dumps(info, indent=2) + "\n", encoding="utf-8")
+    (DEST / "BUILD.json").write_text(json.dumps(info, indent=2) + "\n", encoding="utf-8", newline="\n")
 
     files = [f for f in DEST.rglob("*") if f.is_file()]
     size = sum(f.stat().st_size for f in files)
