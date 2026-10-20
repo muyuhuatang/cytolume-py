@@ -1,0 +1,47 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cytolume"
+dynamic = ["version"]
+description = "GPU embedding viewer for million-cell single-cell data: build a tiled data spine from AnnData and explore it in 2D/3D in the browser."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE", "src/cytolume/viewer/vendor/inter/LICENSE.txt"]
+requires-python = ">=3.10"
+authors = [{ name = "Cytolume contributors" }]
+keywords = ["single-cell", "embedding", "umap", "visualization", "webgl", "anndata", "human-reference-atlas"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+  "Topic :: Scientific/Engineering :: Visualization",
+  "Framework :: Jupyter",
+]
+dependencies = ["numpy>=1.23"]
+
+[project.optional-dependencies]
+anndata = ["anndata>=0.9"]
+test = ["pytest>=7"]
+
+[project.scripts]
+cytolume = "cytolume.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/muyuhuatang/Cytolume"
+Demo = "https://muyuhuatang.github.io/Cytolume/"
+
+[tool.hatch.version]
+path = "src/cytolume/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cytolume"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/cytolume", "scripts", "tests", "README.md", "LICENSE"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

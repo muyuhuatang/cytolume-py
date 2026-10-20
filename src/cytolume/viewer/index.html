@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cytolume — luminous tissue-map</title>
+    <link rel="stylesheet" href="/vendor/inter/inter.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230b0e14'/><circle cx='16' cy='16' r='9' fill='%23fc4e2a' opacity='.28'/><circle cx='16' cy='16' r='5.5' fill='%23fd8d3c' opacity='.55'/><circle cx='16' cy='16' r='2.6' fill='%23ffffcc'/></svg>" />
+    <script type="module" crossorigin src="/assets/index-DHB_PBEa.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BMSEblbd.css">
+  </head>
+  <body>
+    <canvas id="stage"></canvas>
+
+    <!-- calm default interface: floating panel top-left, readouts bottom -->
+    <header id="brand">
+      <span class="mark">Cytolume</span>
+      <span class="tag">Explore single-cell maps in 2D and 3D</span>
+    </header>
+
+    <section id="panel" aria-label="figure controls">
+      <details class="grp cyto-guide" id="quick-start" open>
+        <summary>Quick start</summary>
+        <p class="guide-intro">Explore a reproducible single-cell demo.</p>
+        <ol>
+          <li><strong id="guide-move-title">Rotate the map</strong><span id="guide-move">Drag to rotate; scroll to zoom.</span></li>
+          <li><strong id="guide-select-title">Select a cell</strong><span id="guide-select">Click a point to inspect it. Choose Cell type under Encoding to explore populations.</span></li>
+          <li><strong id="guide-context-title">Explore anatomy</strong><span id="guide-context">The Anatomy panel shows an illustrative organ link for your selection.</span></li>
+        </ol>
+        <button id="guide-dismiss" type="button">Start exploring</button>
+      </details>
+      <details class="grp" open>
+        <summary>Data</summary>
+<div class="row" id="layout-row" style="display: none">
+        <label for="layout">Layout</label>
+        <select id="layout"></select>
+      </div>
+<div class="row">
+        <label for="mode">Encoding</label>
+        <select id="mode">
+          <option value="continuous">Continuous · density glow</option>
+          <option value="categorical">Cell type</option>
+        </select>
+      </div>
+<div class="row" id="cmap-row">
+        <label for="cmap">Colormap</label>
+        <select id="cmap">
+          <option value="magma">magma</option>
+          <option value="inferno">inferno</option>
+          <option value="viridis">viridis</option>
+          <option value="cividis">cividis</option>
+          <option value="coolwarm">coolwarm</option>
+          <option value="ylorrd">YlOrRd</option>
+          <option value="emerald">emerald</option>
+          <option value="plum">plum</option>
+          <option value="amber">amber</option>
+          <option value="rose">rose</option>
+          <option value="azure">azure</option>
+        </select>
+      </div>
+      </details>
+      <details class="grp" id="marks-grp" open style="display: none">
+        <summary>Marks</summary>
+        <div class="row slider" id="marksize-row">
+          <label for="marksize">Size</label>
+          <input type="range" id="marksize" min="0.7" max="2.5" step="0.05" value="1" />
+          <output id="marksize-out" for="marksize">1.00x</output>
+        </div>
+        <div class="row slider" id="ink-row">
+          <label for="ink">Ink</label>
+          <input type="range" id="ink" min="0.5" max="8" step="0.1" value="3" />
+          <output id="ink-out" for="ink">3.0x</output>
+        </div>
+        <div class="row slider" id="edl-row">
+          <label for="edl">Depth cue</label>
+          <input type="range" id="edl" min="0" max="1.2" step="0.05" value="0.35" />
+          <output id="edl-out" for="edl">0.35</output>
+        </div>
+        <div class="row" id="blend-row">
+          <label for="blend">Accumulate</label>
+          <select id="blend">
+            <option value="sum">Sum &middot; cell mass</option>
+            <option value="peak">Peak &middot; strongest</option>
+          </select>
+        </div>
+        <p class="note" id="marks-note"></p>
+      </details>
+      <details class="grp">
+        <summary>Context</summary>
+<div class="row" id="density-row" style="display: none">
+        <label for="density">Density</label>
+        <select id="density">
+          <option value="off">Off</option>
+          <option value="underlay">Underlay</option>
+          <option value="contours">Underlay + contours</option>
+        </select>
+      </div>
+<div class="row" id="theme-row">
+        <label for="theme">Theme</label>
+        <select id="theme">
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+        </select>
+      </div>
+      </details>
+      <details class="grp">
+        <summary>View</summary>
+<div class="row" id="view-row">
+        <label for="view">View</label>
+        <select id="view">
+          <option value="2d">2D</option>
+          <option value="3d">3D</option>
+        </select>
+      </div>
+<div class="row" id="tool-row" style="display: none">
+        <label for="tool">Tool</label>
+        <select id="tool">
+          <option value="orbit">Orbit · drag to rotate</option>
+          <option value="lasso">Lasso · drag to select</option>
+        </select>
+      </div>
+<div class="row" id="motion-row" style="display: none">
+        <label for="motion">Motion</label>
+        <select id="motion">
+          <option value="always">Always</option>
+          <option value="idle">When idle</option>
+          <option value="off">Off</option>
+        </select>
+      </div>
+<div class="row" id="spin-row" style="display: none">
+        <label for="spin">Cluster spin</label>
+        <select id="spin">
+          <option value="on">On</option>
+          <option value="off">Off</option>
+        </select>
+      </div>
+      </details>
+    </section>
+
+    <footer id="readout">
+      <span id="count">—</span>
+      <span class="sep">·</span>
+      <span id="fps">— fps</span>
+      <span class="sep">·</span>
+      <span id="zoom">1.0×</span>
+      <span class="hint">drag to pan · scroll to zoom</span>
+    </footer>
+
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "source": "https://github.com/muyuhuatang/Cytolume",
+  "sourceCommit": "a50ca99735d6a1d3e02df91e6067d80be178e458",
+  "webVersion": "0.0.1",
+  "builtAt": "2026-10-20T05:26:42+00:00",
+  "basePath": "/",
+  "excluded": [
+    "spine/",
+    "vendor/hra/"
+  ]
+}
